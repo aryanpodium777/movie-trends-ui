@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.leftNavOptions = [
-      { name: 'Movies', code: 'MOVIE' },
+      { name: 'Movies', code: 'AMOVIE' },
       { name: 'Analytics', code: 'ANALYTICS' }
     ];
   }
