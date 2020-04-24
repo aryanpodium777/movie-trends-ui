@@ -30,7 +30,7 @@
     padding: 0 16px;
     max-width: 960px;
     min-height: 600px;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 
