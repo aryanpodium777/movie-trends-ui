@@ -1,0 +1,10 @@
+{
+    "serviceInfo": [
+        {
+            "serviceName": "mtBackend",
+            "rootURL": "",
+            "port": "",
+            "contextPath": "/"
+        }
+    ]
+}

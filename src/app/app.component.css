@@ -46,7 +46,7 @@
   }
 
   .listbox{
-    margin-top: 50px;
+    margin-top: 60px;
   }
 
   .user svg{
@@ -74,4 +74,11 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.ui-sidebar-active{
+  padding: 0 !important;
+}
+.ui-listbox{
+  width: 100%;
 }

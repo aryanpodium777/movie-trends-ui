@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { SidebarModule } from 'primeng/sidebar';
@@ -8,6 +8,8 @@ import { DataViewModule } from 'primeng/dataview';
 import { DropdownModule } from 'primeng/dropdown';
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
+import { AppConfigService, appConfigServiceFactory, appConfigFactory } from './services';
+import { APP_CONFIG } from './models/app-config.model';
 
 @NgModule({
     imports: [
@@ -19,6 +21,19 @@ import { CardModule } from 'primeng/card';
         TreeModule,
         ButtonModule,
         SidebarModule
+    ],
+    providers: [
+        {
+            provide: APP_INITIALIZER,
+            useFactory: appConfigServiceFactory,
+            deps: [AppConfigService],
+            multi: true
+        },
+        {
+            provide: APP_CONFIG,
+            useFactory: appConfigFactory,
+            deps: [AppConfigService]
+        }
     ]
 })
 export class CoreModule { }

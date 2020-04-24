@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AppConfig, APP_CONFIG } from '../models/app-config.model';
 
 
 const URL = 'https://movie-trends-be.herokuapp.com';
@@ -11,7 +12,10 @@ const URL = 'https://movie-trends-be.herokuapp.com';
 )
 export class MovieinfoService {
 
-    constructor(private readonly http: HttpClient) { }
+    constructor(private readonly http: HttpClient,
+        @Inject(APP_CONFIG) private readonly appConfig: AppConfig) {
+        console.log(appConfig);
+    }
 
     fetchAllMovieinfo(queryParams = ''): Observable<any> {
         const apiUrl = URL + '/movie-info' + queryParams;
