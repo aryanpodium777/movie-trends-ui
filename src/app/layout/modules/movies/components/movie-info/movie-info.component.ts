@@ -26,13 +26,13 @@ export class MovieInfoComponent implements OnInit {
       this.movieinfoService.fetchReview(movie_info_id, this.userService.getLoggedInUser().id).subscribe((review: Review) => {
         this.review = review;
         this.review.movie_info_id = +movie_info_id;
-        this.review.reviewer_id = this.userService.getLoggedInUser().id;
+        this.review.reviewer_id = (this.userService.getLoggedInUser()) ? this.userService.getLoggedInUser().id : null;
         console.log(this.review, 'review');
         this.createReviewForm();
       }, error => {
         this.review = { id: null, title: '', remark: '', rating: 0 };
         this.review.movie_info_id = +movie_info_id;
-        this.review.reviewer_id = this.userService.getLoggedInUser().id;
+        this.review.reviewer_id = (this.userService.getLoggedInUser()) ? this.userService.getLoggedInUser().id : null;
         console.log(this.review, 'review');
         this.createReviewForm();
       });
@@ -61,7 +61,10 @@ export class MovieInfoComponent implements OnInit {
   }
   showDialog: boolean;
   public submitReview(): void {
+    const movie_info_id = this.route.snapshot.paramMap.get('id');
     const payload = this.review;
+    payload.reviewer_id = (this.userService.getLoggedInUser()) ? this.userService.getLoggedInUser().id : null;
+    payload.movie_info_id = +movie_info_id;
     if (!payload.reviewer_id) {
       this.showDialog = true;
       return;
