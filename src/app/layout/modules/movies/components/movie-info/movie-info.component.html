@@ -73,12 +73,16 @@
                 <span>Submit Review</span>
             </div>
             <div class="p-col-9">
-                <p-rating [ngModel]="rating"></p-rating>
-                <textarea pInputTextarea autoResize="false"></textarea>
-                <div class="p-grid submit-button">
-                    <button pButton type="button" label="Submit"></button>
-                    <button pButton type="button" label="Cancel" class="ui-button-secondary"></button>
-                </div>
+                <ng-container *ngIf="reviewForm">
+                    <form [formGroup]="reviewForm">
+                        <p-rating formControlName="rating"></p-rating>
+                        <textarea pInputTextarea formControlName="remark" autoResize="false"></textarea>
+                        <div class="p-grid submit-button">
+                            <button pButton type="button" label="Submit" (click)="submitReview()"></button>
+                            <button pButton type="button" label="Cancel" class="ui-button-secondary"></button>
+                        </div>
+                    </form>
+                </ng-container>
             </div>
         </div>
     </p-footer>

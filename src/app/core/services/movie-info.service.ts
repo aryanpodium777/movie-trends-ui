@@ -37,12 +37,12 @@ export class MovieinfoService {
         return this.http.get(apiUrl);
     }
 
-    submitRating(rating: any): Observable<any> {
+    submitRating(payload: any): Observable<any> {
         const apiUrl = this.backendHostnameProviderService.getServiceUrl('mtBackend') + `/rate`;
-        if (rating.id) {
-            return this.http.post(apiUrl, rating);
+        if (payload.id) {
+            return this.http.put(apiUrl, payload);
         } else {
-            return this.http.put(apiUrl, rating);
+            return this.http.post(apiUrl, payload);
         }
     }
 

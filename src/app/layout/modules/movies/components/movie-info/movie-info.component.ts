@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MovieinfoService } from '@mvt/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MovieinfoService, UserService } from '@mvt/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { Review } from 'src/app/core/models/review-model';
+import { FormGroup, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-movie-info',
   templateUrl: './movie-info.component.html',
@@ -9,18 +10,28 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MovieInfoComponent implements OnInit {
 
+  public reviewForm: FormGroup;
   public movieInfo;
-  public rating: number = 0;
+  public review: Review;
+
   constructor(
     private readonly movieinfoService: MovieinfoService,
+    private readonly userService: UserService,
     private readonly route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.movieinfoService.fetchMovieinfo(id).subscribe(res => {
+    const movie_info_id = this.route.snapshot.paramMap.get('id');
+    this.movieinfoService.fetchMovieinfo(movie_info_id).subscribe(res => {
       this.movieInfo = res;
-      console.log(res);
-    })
+      this.movieinfoService.fetchReview(movie_info_id, this.userService.getLoggedInUser().id).subscribe((review: Review) => {
+        this.review = review;
+        this.review.movie_info_id = +movie_info_id;
+        this.review.reviewer_id = this.userService.getLoggedInUser().id;
+        console.log(this.review,'haa');
+        this.createReviewForm();
+      });
+    });
+
   }
 
   public getActorsOrWritersOrDirectorsName(list: Array<any>): string {
@@ -43,4 +54,17 @@ export class MovieInfoComponent implements OnInit {
     }
   }
 
+  public submitReview(): void {
+    const payload=this.review;
+    this.movieinfoService.submitRating(payload).subscribe(response => {
+      console.log('Successfully logged');
+    })
+  }
+
+  private createReviewForm(): void {
+    this.reviewForm = new FormGroup({
+      remark: new FormControl(this.review.remark),
+      rating: new FormControl(this.review.rating)
+    });
+  }
 }
