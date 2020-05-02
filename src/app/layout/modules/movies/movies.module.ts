@@ -7,16 +7,17 @@ import { TreeModule } from 'primeng/tree';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MovieRoutingModule } from './movies.routing.module';
 import { MovieInfoListComponent } from './components/movie-info-list/movie-info-list.component';
 import { MoviesContainerComponent } from './components/movies-container/movies-container.component';
 import { MovieInfoComponent } from './components/movie-info/movie-info.component';
-import {RatingModule} from 'primeng/rating';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { RatingModule } from 'primeng/rating';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CommonModule } from '@angular/common';
-import {DialogModule} from 'primeng/dialog';
-import {ToastModule} from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {ToastModule} from 'primeng/toast';
         InputTextareaModule,
         DialogModule,
         ToastModule
-    ]
+    ],
+    providers: [MessageService]
 })
 export class MoviesModule { }

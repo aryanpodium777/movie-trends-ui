@@ -47,6 +47,8 @@ export class MovieInfoComponent implements OnInit {
         console.log(this.review, 'review');
         this.createReviewForm();
       }
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Some error occured.' });
     });
 
   }
@@ -73,7 +75,12 @@ export class MovieInfoComponent implements OnInit {
   showDialog: boolean;
   public submitReview(): void {
     const movie_info_id = this.route.snapshot.paramMap.get('id');
-    const payload = this.review;
+    const payload = {
+      id: this.review.id,
+      title: this.reviewForm.value['remark'],
+      remark: this.reviewForm.value['remark'],
+      rating: this.reviewForm.value['rating']
+    } as Review;
     payload.reviewer_id = (this.userService.getLoggedInUser()) ? this.userService.getLoggedInUser().id : null;
     payload.movie_info_id = +movie_info_id;
     if (!payload.reviewer_id) {
@@ -85,7 +92,7 @@ export class MovieInfoComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Successfully saved.' });
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Some error occured.' });
-    })
+    });
   }
 
   private createReviewForm(): void {
