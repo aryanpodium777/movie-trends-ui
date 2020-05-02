@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(res => {
       res.id = null;
       this.userService.saveUser(res).subscribe(response => {
-        this.userService.setLoggedInUser(res);
+        this.userService.setLoggedInUser(response);
         this.user = this.userService.getLoggedInUser();
       }, error => {
         console.log('error', error);
