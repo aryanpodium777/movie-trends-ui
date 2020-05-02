@@ -25,8 +25,8 @@
           <img src="{{movie.Poster}}" class="float-left" (click)="navigateToMovieinfo($event, movie)">
           <div class="ui-g float-left">
             <div class="ui-g-12">Name: <b>{{movie.title}}</b></div>
-            <div class="ui-g-12">Year: <b>{{movie.year}}</b></div>
-            <div class="ui-g-12">Released: <b>{{movie.Released}}</b></div>
+            <div class="ui-g-12">Year: <b>{{movie.Released | date :'yyyy'}}</b></div>
+            <div class="ui-g-12">Released: <b>{{movie.Released | date : 'dd MMM, yyyy' }}</b></div>
           </div>
         </div>
       </div>
