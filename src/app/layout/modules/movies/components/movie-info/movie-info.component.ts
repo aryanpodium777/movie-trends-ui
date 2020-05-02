@@ -23,19 +23,27 @@ export class MovieInfoComponent implements OnInit {
     const movie_info_id = this.route.snapshot.paramMap.get('id');
     this.movieinfoService.fetchMovieinfo(movie_info_id).subscribe(res => {
       this.movieInfo = res;
-      this.movieinfoService.fetchReview(movie_info_id, this.userService.getLoggedInUser().id).subscribe((review: Review) => {
-        this.review = review;
-        this.review.movie_info_id = +movie_info_id;
-        this.review.reviewer_id = (this.userService.getLoggedInUser()) ? this.userService.getLoggedInUser().id : null;
-        console.log(this.review, 'review');
-        this.createReviewForm();
-      }, error => {
+      if (this.userService.getLoggedInUser()) {
+        this.movieinfoService.fetchReview(movie_info_id, this.userService.getLoggedInUser().id).subscribe((review: Review) => {
+          this.review = review;
+          this.review.movie_info_id = +movie_info_id;
+          this.review.reviewer_id = (this.userService.getLoggedInUser()) ? this.userService.getLoggedInUser().id : null;
+          console.log(this.review, 'review');
+          this.createReviewForm();
+        }, error => {
+          this.review = { id: null, title: '', remark: '', rating: 0 };
+          this.review.movie_info_id = +movie_info_id;
+          this.review.reviewer_id = (this.userService.getLoggedInUser()) ? this.userService.getLoggedInUser().id : null;
+          console.log(this.review, 'review');
+          this.createReviewForm();
+        });
+      } else {
         this.review = { id: null, title: '', remark: '', rating: 0 };
         this.review.movie_info_id = +movie_info_id;
         this.review.reviewer_id = (this.userService.getLoggedInUser()) ? this.userService.getLoggedInUser().id : null;
         console.log(this.review, 'review');
         this.createReviewForm();
-      });
+      }
     });
 
   }
