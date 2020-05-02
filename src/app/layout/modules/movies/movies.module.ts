@@ -14,10 +14,12 @@ import { MoviesContainerComponent } from './components/movies-container/movies-c
 import { MovieInfoComponent } from './components/movie-info/movie-info.component';
 import {RatingModule} from 'primeng/rating';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [MovieInfoListComponent, MoviesContainerComponent, MovieInfoComponent],
     imports: [
+        CommonModule,
         MovieRoutingModule,
         FormsModule,
         ReactiveFormsModule,
