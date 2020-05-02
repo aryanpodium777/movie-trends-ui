@@ -27,7 +27,13 @@ export class MovieInfoComponent implements OnInit {
         this.review = review;
         this.review.movie_info_id = +movie_info_id;
         this.review.reviewer_id = this.userService.getLoggedInUser().id;
-        console.log(this.review,'haa');
+        console.log(this.review, 'review');
+        this.createReviewForm();
+      }, error => {
+        this.review = { id: null, title: '', remark: '', rating: 0};
+        this.review.movie_info_id = +movie_info_id;
+        this.review.reviewer_id = this.userService.getLoggedInUser().id;
+        console.log(this.review, 'review');
         this.createReviewForm();
       });
     });
@@ -55,7 +61,7 @@ export class MovieInfoComponent implements OnInit {
   }
 
   public submitReview(): void {
-    const payload=this.review;
+    const payload = this.review;
     this.movieinfoService.submitRating(payload).subscribe(response => {
       console.log('Successfully logged');
     })
