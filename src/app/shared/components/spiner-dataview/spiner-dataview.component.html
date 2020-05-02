@@ -1,0 +1,54 @@
+<p-dataView #dv [value]="[{}]" [paginator]="true" [rows]="2" paginatorPosition="both" filterBy="title">
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-4">
+                    <p-dropdown placeholder="Sort By" [style]="{'min-width':'140px'}">
+                    </p-dropdown>
+                </div>
+                <div class="ui-g-6 ui-md-4 filter-container">
+                    <div style="position:relative">
+                        <input type="search" pInputText placeholder="Search by name">
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-4" style="text-align:right">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+            </div>
+        </div>
+    </p-header>
+    <ng-template let-movie pTemplate="listItem">
+        <div class="p-grid">
+            <div class="p-col-4">
+            </div>
+            <div class="p-col-4">
+                <div class="p-grid">
+                    <div class="p-col-4"></div>
+                    <div class="p-col-4">
+                        <p-progressSpinner></p-progressSpinner>
+                    </div>
+                    <div class="p-col-4"></div>
+                </div>
+            </div>
+            <div class="p-col-4">
+            </div>
+        </div>
+    </ng-template>
+    <ng-template let-movie pTemplate="gridItem">
+        <div class="p-grid" style="width:100%;text-align: center;">
+            <div class="p-col-4">
+            </div>
+            <div class="p-col-4">
+                <div class="p-grid">
+                    <div class="p-col-4"></div>
+                    <div class="p-col-4">
+                        <p-progressSpinner></p-progressSpinner>
+                    </div>
+                    <div class="p-col-4"></div>
+                </div>
+            </div>
+            <div class="p-col-4">
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>

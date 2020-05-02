@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-
+import { SharedModule } from '@mvt/shared';
 
 @NgModule({
     declarations: [MovieInfoListComponent, MoviesContainerComponent, MovieInfoComponent],
@@ -38,7 +38,8 @@ import { MessageService } from 'primeng/api';
         RatingModule,
         InputTextareaModule,
         DialogModule,
-        ToastModule
+        ToastModule,
+        SharedModule
     ],
     providers: [MessageService]
 })
