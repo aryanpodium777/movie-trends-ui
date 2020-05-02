@@ -84,9 +84,10 @@ export class AnalyticsContainerComponent implements OnInit {
     const id = this.currentdoughnutResponse[event.element._index].id;
 
     this.movieinfoService.fetchBarData(id, this.selectedOfType).subscribe((response: Array<any>) => {
-      const sortedResponse = response;
-      const yearArray = sortedResponse.map(obj => obj.year);
-      const boxOfficeCollectionArray = sortedResponse.map(obj => obj.box_office_collection);
+      const sortedResponse = response.sort((obj1, obj2) => obj2.year - obj1.year);
+      const tenYearData = this.fetchTenYearData(sortedResponse);
+      const yearArray = tenYearData.map(obj => obj.year);
+      const boxOfficeCollectionArray = tenYearData.map(obj => obj.box_office_collection);
       const barHeaderLabel = `Bollywood earnings in crore - ${this.currentdoughnutResponse[event.element._index].name}`;
       this.barData = {
         labels: yearArray,
@@ -118,4 +119,17 @@ export class AnalyticsContainerComponent implements OnInit {
     return color;
   }
 
+  private fetchTenYearData(sortedArray: Array<any>): Array<any> {
+    const maxYear = sortedArray[0].year;
+    const yearArray = [];
+    for (let i = maxYear; i > (maxYear - 10); i--) {
+      const yearData = sortedArray.find(obj => obj.year === i);
+      if (yearData) {
+        yearArray.push(yearData);
+      } else {
+        yearArray.push({ year: i, box_office_collection: 0 });
+      }
+    }
+    return yearArray;
+  }
 }
