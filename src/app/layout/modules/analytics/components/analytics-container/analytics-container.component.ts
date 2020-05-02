@@ -85,7 +85,7 @@ export class AnalyticsContainerComponent implements OnInit {
 
     this.movieinfoService.fetchBarData(id, this.selectedOfType).subscribe((response: Array<any>) => {
       const sortedResponse = response;
-      const yearArray = sortedResponse.map(obj => obj.year[0]);
+      const yearArray = sortedResponse.map(obj => obj.year);
       const boxOfficeCollectionArray = sortedResponse.map(obj => obj.box_office_collection);
       const barHeaderLabel = `Bollywood earnings in crore - ${this.currentdoughnutResponse[event.element._index].name}`;
       this.barData = {
