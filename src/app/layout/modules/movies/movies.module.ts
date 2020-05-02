@@ -15,6 +15,7 @@ import { MovieInfoComponent } from './components/movie-info/movie-info.component
 import {RatingModule} from 'primeng/rating';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { CommonModule } from '@angular/common';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
     declarations: [MovieInfoListComponent, MoviesContainerComponent, MovieInfoComponent],
@@ -32,7 +33,8 @@ import { CommonModule } from '@angular/common';
         ButtonModule,
         SidebarModule,
         RatingModule,
-        InputTextareaModule
+        InputTextareaModule,
+        DialogModule
     ]
 })
 export class MoviesModule { }

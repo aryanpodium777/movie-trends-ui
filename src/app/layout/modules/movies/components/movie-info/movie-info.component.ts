@@ -30,7 +30,7 @@ export class MovieInfoComponent implements OnInit {
         console.log(this.review, 'review');
         this.createReviewForm();
       }, error => {
-        this.review = { id: null, title: '', remark: '', rating: 0};
+        this.review = { id: null, title: '', remark: '', rating: 0 };
         this.review.movie_info_id = +movie_info_id;
         this.review.reviewer_id = this.userService.getLoggedInUser().id;
         console.log(this.review, 'review');
@@ -59,9 +59,13 @@ export class MovieInfoComponent implements OnInit {
       return names;
     }
   }
-
+  showDialog: boolean;
   public submitReview(): void {
     const payload = this.review;
+    if (!payload.reviewer_id) {
+      this.showDialog = true;
+      return;
+    }
     this.movieinfoService.submitRating(payload).subscribe(response => {
       console.log('Successfully logged');
     })
