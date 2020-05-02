@@ -3,6 +3,8 @@ import { MovieinfoService, UserService } from '@mvt/core';
 import { ActivatedRoute } from '@angular/router';
 import { Review } from 'src/app/core/models/review-model';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+
 @Component({
   selector: 'app-movie-info',
   templateUrl: './movie-info.component.html',
@@ -17,7 +19,8 @@ export class MovieInfoComponent implements OnInit {
   constructor(
     private readonly movieinfoService: MovieinfoService,
     private readonly userService: UserService,
-    private readonly route: ActivatedRoute) { }
+    private readonly route: ActivatedRoute,
+    private readonly messageService: MessageService) { }
 
   ngOnInit(): void {
     const movie_info_id = this.route.snapshot.paramMap.get('id');
@@ -78,7 +81,10 @@ export class MovieInfoComponent implements OnInit {
       return;
     }
     this.movieinfoService.submitRating(payload).subscribe(response => {
-      console.log('Successfully logged');
+      this.review = response;
+      this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Successfully saved.' });
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error Message', detail: 'Some error occured.' });
     })
   }
 
