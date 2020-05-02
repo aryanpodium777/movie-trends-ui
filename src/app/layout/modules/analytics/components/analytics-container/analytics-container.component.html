@@ -1,9 +1,24 @@
 <div class="chart-container center">
     <div class="p-grid">
-        <button pButton (click)="print()" label="Print"></button>
+        <div class="p-col">
+            <p-organizationChart [value]="data" selectionMode="single" (onNodeSelect)="onOfNodeSelect($event)">
+            </p-organizationChart>
+        </div>
     </div>
-    <p-organizationChart [value]="data" selectionMode="single" (onNodeSelect)="onOfNodeSelect($event)">
-    </p-organizationChart>
-    <p-chart type="doughnut" [data]="doughnutData" (onDataSelect)="onDoughnutSelect($event)"></p-chart>
-    <p-chart type="bar" [data]="barData"></p-chart>
+    <div class="p-grid">
+        <div class="p-col">
+            <p-chart type="doughnut" [data]="doughnutData" (onDataSelect)="onDoughnutSelect($event)"></p-chart>
+        </div>
+    </div>
+    <div class="p-grid" style="margin-top: 50px;">
+        <div class="p-col">
+            <p-chart type="bar" [data]="barData"></p-chart>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-11"> </div>
+        <div class="p-col-1">
+            <button pButton (click)="print()" label="Print"></button>
+        </div>
+    </div>
 </div>

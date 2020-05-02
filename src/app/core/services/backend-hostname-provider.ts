@@ -5,11 +5,11 @@ import { APP_CONFIG, AppConfig, ServiceInfo } from '../models/app-config.model';
 @Injectable({ providedIn: 'root' })
 export class BackendHostnameProviderService {
     private protocol: string; private hostname: string; private port: string;
-    constructor(private readonly window: Window,
+    constructor(
         @Inject(APP_CONFIG) private readonly appConfig: AppConfig) {
-        this.protocol = this.window.location.protocol;
-        this.hostname = this.window.location.hostname;
-        this.port = this.window.location.port;
+        this.protocol = window.location.protocol;
+        this.hostname = window.location.hostname;
+        this.port = window.location.port;
     }
     getHostname(): string {
         return this.hostname;

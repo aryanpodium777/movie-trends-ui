@@ -2,9 +2,9 @@
     "serviceInfo": [
         {
             "serviceName": "mtBackend",
-            "rootURL": "",
+            "rootURL": "https://movie-trends-be.herokuapp.com",
             "port": "",
-            "contextPath": "/"
+            "contextPath": ""
         }
     ]
 }

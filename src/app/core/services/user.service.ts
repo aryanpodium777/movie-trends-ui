@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BackendHostnameProviderService } from './backend-hostname-provider';
 
-const URL = 'https://movie-trends-be.herokuapp.com';
 @Injectable(
     {
         providedIn: 'root'
@@ -11,7 +11,8 @@ const URL = 'https://movie-trends-be.herokuapp.com';
 export class UserService {
 
     private MT_TOKEN: string = 'MT_TOKEN';
-    constructor(private readonly http: HttpClient) { }
+    constructor(private readonly http: HttpClient,
+        private readonly backendHostnameProviderService: BackendHostnameProviderService) { }
 
     public setLoggedInUser(user: any): void {
         localStorage.setItem(this.MT_TOKEN, JSON.stringify(user));
@@ -23,7 +24,7 @@ export class UserService {
     }
 
     public saveUser(user: any): Observable<any> {
-        const apiURL=URL+'/user'
+        const apiURL = this.backendHostnameProviderService.getServiceUrl('mtBackend') + '/user'
         return this.http.post(apiURL, user);
     }
 
