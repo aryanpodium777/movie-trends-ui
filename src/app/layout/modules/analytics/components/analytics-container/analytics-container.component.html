@@ -12,7 +12,7 @@
     </div>
     <div class="p-grid" style="margin-top: 50px;">
         <div class="p-col">
-            <p-chart type="bar" [data]="barData"></p-chart>
+            <p-chart type="bar" [data]="barData" (onDataSelect)="onBarSelect($event)"></p-chart>
         </div>
     </div>
     <div class="p-grid">

@@ -15,6 +15,7 @@ export class AnalyticsContainerComponent implements OnInit {
   currentdoughnutResponse: any[];
   selectedOfType: string;
   barData: any;
+  backgroundColorArray: any[];
   constructor(private readonly movieinfoService: MovieinfoService,
     private readonly router: Router) { }
 
@@ -66,7 +67,7 @@ export class AnalyticsContainerComponent implements OnInit {
         countArray[index] = this.currentdoughnutResponse[index].count;
         backgroundColorArray[index] = this.getRandomColor();
       }
-
+      this.backgroundColorArray = backgroundColorArray;
       this.doughnutData = {
         labels: labelArray,
         datasets: [
@@ -82,7 +83,7 @@ export class AnalyticsContainerComponent implements OnInit {
 
   public onDoughnutSelect(event): void {
     const id = this.currentdoughnutResponse[event.element._index].id;
-
+    const color = this.backgroundColorArray[event.element._index];
     this.movieinfoService.fetchBarData(id, this.selectedOfType).subscribe((response: Array<any>) => {
       const sortedResponse = response.sort((obj1, obj2) => obj2.year - obj1.year);
       const tenYearData = this.fetchTenYearData(sortedResponse);
@@ -94,7 +95,7 @@ export class AnalyticsContainerComponent implements OnInit {
         datasets: [
           {
             label: barHeaderLabel,
-            backgroundColor: '#42A5F5',
+            backgroundColor: color,
             borderColor: '#1E88E5',
             data: boxOfficeCollectionArray
           }
@@ -102,6 +103,10 @@ export class AnalyticsContainerComponent implements OnInit {
       };
 
     });
+  }
+
+  public onBarSelect(event): void {
+    console.log(event);
   }
 
   public print(): void {
