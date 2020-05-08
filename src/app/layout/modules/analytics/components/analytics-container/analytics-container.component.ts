@@ -16,6 +16,11 @@ export class AnalyticsContainerComponent implements OnInit {
   selectedOfType: string;
   barData: any;
   backgroundColorArray: any[];
+  showDialog: boolean = false;
+  yearArray = [];
+  selectedIdOfOf: number;
+  selectedYear: number;
+  movieInfoList: Array<any> = [];
   constructor(private readonly movieinfoService: MovieinfoService,
     private readonly router: Router) { }
 
@@ -83,11 +88,13 @@ export class AnalyticsContainerComponent implements OnInit {
 
   public onDoughnutSelect(event): void {
     const id = this.currentdoughnutResponse[event.element._index].id;
+    this.selectedIdOfOf = id;
     const color = this.backgroundColorArray[event.element._index];
     this.movieinfoService.fetchBarData(id, this.selectedOfType).subscribe((response: Array<any>) => {
       const sortedResponse = response.sort((obj1, obj2) => obj2.year - obj1.year);
       const tenYearData = this.fetchTenYearData(sortedResponse);
       const yearArray = tenYearData.map(obj => obj.year);
+      this.yearArray = yearArray;
       const boxOfficeCollectionArray = tenYearData.map(obj => obj.box_office_collection);
       const barHeaderLabel = `Bollywood earnings in crore - ${this.currentdoughnutResponse[event.element._index].name}`;
       this.barData = {
@@ -107,6 +114,15 @@ export class AnalyticsContainerComponent implements OnInit {
 
   public onBarSelect(event): void {
     console.log(event);
+    const year = this.yearArray[event.element._index];
+    this.selectedYear = year;
+    this.movieinfoService.fetchMovieinfoByYear(year, `?of=${this.selectedOfType}&id=${this.selectedIdOfOf}`).subscribe(response => {
+      this.showDialog = true;
+      this.movieInfoList = response.map(obj => {
+        return { data: obj }
+      });
+      console.log(this.movieInfoList);
+    });
   }
 
   public print(): void {

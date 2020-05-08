@@ -1,5 +1,5 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
@@ -10,6 +10,7 @@ import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
 import { AppConfigService, appConfigServiceFactory, appConfigFactory } from './services';
 import { APP_CONFIG } from './models/app-config.model';
+import { MvtInterceptor } from './interceptor/mvt-interceptor';
 
 @NgModule({
     imports: [
@@ -33,7 +34,12 @@ import { APP_CONFIG } from './models/app-config.model';
             provide: APP_CONFIG,
             useFactory: appConfigFactory,
             deps: [AppConfigService]
-        }
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: MvtInterceptor,
+            multi: true,
+          }
     ]
 })
 export class CoreModule { }

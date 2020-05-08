@@ -26,6 +26,11 @@ export class MovieinfoService {
         return this.http.get(apiUrl);
     }
 
+    fetchMovieinfoByYear(year, queryParams = ''): Observable<any> {
+        const apiUrl = this.backendHostnameProviderService.getServiceUrl('mtBackend') + '/movie-info/year/' + year + queryParams;
+        return this.http.get(apiUrl);
+    }
+
     fetchDoughnutData(ofSent: string): Observable<any> {
         const apiUrl = this.backendHostnameProviderService.getServiceUrl('mtBackend') + `/analytics/doughnut?of=${ofSent}`;
         return this.http.get(apiUrl);

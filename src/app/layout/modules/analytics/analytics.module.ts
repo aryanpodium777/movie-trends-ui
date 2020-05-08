@@ -4,6 +4,8 @@ import { AnalyticsContainerComponent } from './components/analytics-container/an
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { ChartModule } from 'primeng/chart';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import {TreeTableModule} from 'primeng/treetable';
 
 @NgModule({
     declarations: [AnalyticsContainerComponent],
@@ -11,7 +13,9 @@ import { ButtonModule } from 'primeng/button';
         AnalyticsRoutingModule,
         OrganizationChartModule,
         ChartModule,
-        ButtonModule
+        ButtonModule,
+        DialogModule,
+        TreeTableModule
     ]
 })
 export class AnalyticsModule { }

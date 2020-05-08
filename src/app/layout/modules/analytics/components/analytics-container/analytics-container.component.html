@@ -22,3 +22,27 @@
         </div>
     </div>
 </div>
+
+<p-dialog header="Movie details- {{selectedYear}}" [(visible)]="showDialog">
+    <p-treeTable [value]="movieInfoList">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Movie Name</th>
+                <th>Box office collection</th>
+                <th>Language</th>
+                <th>Country</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+            <tr [ttRow]="rowNode">
+                <td>
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    {{rowData.title}}
+                </td>
+                <td>{{rowData.BoxOffice}} Crore &#8377;</td>
+                <td>{{rowData.Language}}</td>
+                <td>{{rowData.Country}}</td>
+            </tr>
+        </ng-template>
+    </p-treeTable>
+</p-dialog>
